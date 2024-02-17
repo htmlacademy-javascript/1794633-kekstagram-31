@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Andrei Beloff](https://up.htmlacademy.ru/javascript/31/user/1794633).
-* Наставник: `Неизвестно`.
+* Наставник: [Юрий Белобородов](https://htmlacademy.ru/profile/id514591).
 
 ---
 
