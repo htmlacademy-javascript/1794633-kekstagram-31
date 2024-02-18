@@ -1,5 +1,6 @@
 const isStringShorterThanLimit = (checkingString, limit) => checkingString.length <= limit;
-console.log(isStringShorterThanLimit('тестовая строка', 50));
+let test = isStringShorterThanLimit('тестовая строка', 50);
+// console.log(test);
 
 function isThatPalindrome(checkingString) {
   const normalizedString = checkingString.replaceAll(' ', '').toUpperCase();
@@ -10,8 +11,11 @@ function isThatPalindrome(checkingString) {
   }
   return result === normalizedString;
 }
-console.log(isThatPalindrome('тестовая строка'));
-console.log(isThatPalindrome('до вод '));
+
+test = isThatPalindrome('тестовая строка');
+// console.log(test);
+test = isThatPalindrome('до вод ');
+// console.log(test);
 
 function extractNumbers(checkingValue) {
 
@@ -27,7 +31,11 @@ function extractNumbers(checkingValue) {
 
   return parseInt(result, 10);
 }
-console.log(extractNumbers('ECMAScript 2022'));
-console.log(extractNumbers('1 кефир, 0.5 батона'));
-console.log(extractNumbers(-1));
-console.log(extractNumbers(1.5));
+test = extractNumbers('ECMAScript 2022');
+// console.log(test);
+test = extractNumbers('1 кефир, 0.5 батона');
+// console.log(test);
+test = extractNumbers(-1);
+// console.log(test);
+test = extractNumbers(1.5);
+// console.log(test);
