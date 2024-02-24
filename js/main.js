@@ -32,10 +32,10 @@ function generateComments() {
   return comments;
 }
 
-function Comment(IdGenerator) {
+function Comment(idGenerator) {
   const MIN_AVATAR_ID = 1, MAX_AVATAR_ID = 6;
 
-  this.id = IdGenerator();
+  this.id = idGenerator();
   this.avatar = `img/avatar-${getRandomNumber(MIN_AVATAR_ID, MAX_AVATAR_ID)}.svg`;
   this.message = getRandomComment();
   this.name = getRandomAuthor();
