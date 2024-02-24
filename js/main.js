@@ -1,4 +1,4 @@
-function GeneratePhotos() {
+function generatePhotos() {
   const QUANTITY = 25;
   const photos = [];
 
@@ -16,10 +16,10 @@ function Photo(id) {
   this.url = `photos/${id}.jpg`;
   this.description = `Фоточка ${id} котика`;
   this.likes = getRandomNumber(MIN_LIKES, MAX_LIKES);
-  this.comments = GenerateComments();
+  this.comments = generateComments();
 }
 
-function GenerateComments() {
+function generateComments() {
   const MIN_COMMENTS = 0, MAX_COMMENTS = 30;
   const MIN_COMMENT_ID = 1, MAX_COMMENT_ID = 300;
   const commentsQuantity = getRandomNumber(MIN_COMMENTS, MAX_COMMENTS);
@@ -91,4 +91,5 @@ function getRandomAuthor() {
   return getRandomTextRow(TEMPLATE_TEXT);
 }
 
-GeneratePhotos().forEach((photo) => console.log(photo));
+const generatedPhotos = generatePhotos();
+generatedPhotos.forEach((photo) => console.log(photo));
