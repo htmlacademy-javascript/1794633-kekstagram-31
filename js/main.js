@@ -1,4 +1,4 @@
-import generatePhotos from './data.js';
+import generatePhotos from './createPhotos.js';
 
 const generatedPhotos = generatePhotos();
 
