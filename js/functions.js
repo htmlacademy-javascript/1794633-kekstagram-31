@@ -13,9 +13,6 @@ function isThatPalindrome(checkingString) {
 }
 
 test = isThatPalindrome('тестовая строка');
-// console.log(test);
-test = isThatPalindrome('до вод ');
-// console.log(test);
 
 function extractNumbers(checkingValue) {
 
@@ -31,11 +28,24 @@ function extractNumbers(checkingValue) {
 
   return parseInt(result, 10);
 }
-test = extractNumbers('ECMAScript 2022');
-// console.log(test);
-test = extractNumbers('1 кефир, 0.5 батона');
-// console.log(test);
-test = extractNumbers(-1);
-// console.log(test);
-test = extractNumbers(1.5);
-// console.log(test);
+
+test = extractNumbers('t1d3');
+
+// module 5 task 2
+function convertTimeToNumber (timeString) {
+  const [hours, minutes] = timeString.split(':').map(Number);
+  return hours * 60 + minutes;
+}
+
+function isMeetingInWorkTime (workStart, workEnd, meetingStart, meetingMinutes) {
+
+  workStart = convertTimeToNumber(workStart);
+  workEnd = convertTimeToNumber(workEnd);
+  meetingStart = convertTimeToNumber(meetingStart);
+
+  return meetingStart + meetingMinutes <= workEnd && meetingStart >= workStart;
+}
+
+test = isMeetingInWorkTime('08:00', '17:30', '14:00', 90);
+
+window.console.log(test);
