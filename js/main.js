@@ -1,6 +1,5 @@
 import generatePhotos from './createPhotos.js';
+import renderPictures from './renderPictures.js';
 
 const generatedPhotos = generatePhotos();
-
-window.console.log(generatedPhotos);
-//generatedPhotos.forEach((photo) => console.log(photo));
+renderPictures(generatedPhotos);
