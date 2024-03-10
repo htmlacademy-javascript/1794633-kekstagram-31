@@ -17,6 +17,5 @@ function renderSinglePicture(photoData) {
 }
 
 export default function renderPictures(photosData) {
-  const thumbnailsContainer = document.querySelector('.pictures');
-  thumbnailsContainer.append(...photosData.map(renderSinglePicture));
+  document.querySelector('.pictures').append(...photosData.map(renderSinglePicture));
 }
