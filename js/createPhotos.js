@@ -1,5 +1,5 @@
-import {COMMENTS, AUTHORS} from './data';
-import {getRandomNumber, createRandomIdFromRangeGenerator, getRandomTextRow} from './util.js';
+import {COMMENTS, AUTHORS} from './data.js';
+import {getRandomNumber, createRandomIdFromRangeGenerator, getRandomTextRow} from './utils/commonUtils.js';
 export default function generatePhotos() {
   const QUANTITY = 25;
   const photos = [];
