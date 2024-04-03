@@ -22,9 +22,14 @@ const socialCommentTotalCountNode = socialCommentCountNode.querySelector(
 );
 const socialCommentsNode = bigPictureNode.querySelector('.social__comments');
 const socialCommentNode = socialCommentsNode.querySelector('.social__comment');
+const socialCommentsLoadButtonNode = bigPictureSocialNode.querySelector(
+  '.social__comments-loader',
+);
 const bigPictureCloseNode = bigPictureNode.querySelector(
   '.big-picture__cancel',
 );
+const COMMENTS_PORTION_SIZE = 5;
+let nextCommentsPortionGetter;
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey) {
@@ -41,10 +46,9 @@ function openBigPicture({ url, description, likes, comments }) {
   bigPictureImageNode.alt = description;
   socialCaptionNode.textContent = description;
   likesCountNode.textContent = likes;
-  socialCommentShownCountNode.textContent = comments.length;
   socialCommentTotalCountNode.textContent = comments.length;
 
-  renderCommments(comments);
+  beginRenderCommments(comments);
 
   bigPictureCloseNode.addEventListener('click', closeBigPicture);
   document.addEventListener('keydown', onDocumentKeydown);
@@ -58,14 +62,58 @@ function closeBigPicture() {
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-function renderCommments(comments) {
+const onLoadCommentsButtonClick = (evt) => {
+  evt.preventDefault();
+  renderNextCommentsPortion();
+};
+
+function beginRenderCommments(comments) {
   socialCommentsNode.innerHTML = '';
+  nextCommentsPortionGetter = initNextCommentsPortionGetter(comments);
+  renderNextCommentsPortion();
+  socialCommentsLoadButtonNode.addEventListener(
+    'click',
+    onLoadCommentsButtonClick,
+  );
+}
+
+function initNextCommentsPortionGetter(comments) {
+  const maxPosition = comments.length;
+  let startPosition = 0;
+  let endPosition = COMMENTS_PORTION_SIZE;
+
+  return function () {
+    endPosition = Math.min(endPosition, maxPosition);
+    const result = {
+      commentsPortion: comments.slice(startPosition, endPosition),
+      finalPortion: endPosition === maxPosition,
+      shownCount: endPosition,
+    };
+    startPosition = endPosition;
+    endPosition += COMMENTS_PORTION_SIZE;
+    return result;
+  };
+}
+
+function renderNextCommentsPortion() {
+  const { commentsPortion, finalPortion, shownCount } =
+    nextCommentsPortionGetter();
+
   const fragment = new DocumentFragment();
-  comments.map((comment) => {
+  commentsPortion.map((comment) => {
     const renderedCommentNode = renderComment(comment);
     fragment.appendChild(renderedCommentNode);
   });
   socialCommentsNode.appendChild(fragment);
+
+  socialCommentShownCountNode.textContent = shownCount;
+
+  if (finalPortion) {
+    socialCommentsLoadButtonNode.removeEventListener(
+      'click',
+      onLoadCommentsButtonClick,
+    );
+  }
 }
 
 function renderComment({ avatar, message, name }) {
