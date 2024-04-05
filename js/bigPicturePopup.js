@@ -125,4 +125,18 @@ function renderComment({ avatar, message, name }) {
   return renderedCommentNode;
 }
 
-export default openBigPicture;
+export default function setupBigPicturePopup(photoDataset) {
+  const picturesContainerNode = document.querySelector('.pictures');
+
+  picturesContainerNode.addEventListener('click', (evt) => {
+    const currentPictureNode = evt.target.closest('.picture');
+
+    if (currentPictureNode) {
+      evt.preventDefault();
+      const photoData = photoDataset.find(
+        (photo) => Number(photo.id) === Number(currentPictureNode.dataset.id),
+      );
+      openBigPicture(photoData);
+    }
+  });
+}
