@@ -1,8 +1,11 @@
-import { isEscapeKey } from './utils/commonUtils.js';
+import { isEscapeKey } from '../utils/commonUtils.js';
 import {
   isValidByPristine,
   resetPristineValidation,
-} from './validatePictureUploadForm.js';
+} from './validateUploadForm.js';
+import { setupScalingForUploadedPicture, resetScalingForUploadedPicture } from './previewScaling.js';
+import { setupEffectsForUploadedPicture } from './effects/setupSlider.js';
+import { resetEffectOnPrevewNode } from './effects/applySettings.js';
 
 const pictureUploadFormNode = document.querySelector('#upload-select-image');
 const fileUploadInputNode = pictureUploadFormNode.querySelector('#upload-file');
@@ -50,6 +53,8 @@ function closePictureEditForm() {
   document.removeEventListener('keydown', onDocumentEscKeydown);
 
   pictureUploadFormNode.reset();
+  resetEffectOnPrevewNode();
+  resetScalingForUploadedPicture();
   resetPristineValidation();
 }
 
@@ -69,5 +74,7 @@ export default function setupPictureUploadForm() {
     closePictureEditForm();
   });
 
+  setupScalingForUploadedPicture();
+  setupEffectsForUploadedPicture();
   setupSubmitActionForUploadForm();
 }
