@@ -6,6 +6,7 @@ import {
 import { setupScalingForUploadedPicture, resetScalingForUploadedPicture } from './previewScaling.js';
 import { setupEffectsForUploadedPicture } from './effects/setupSlider.js';
 import { resetEffectOnPrevewNode } from './effects/applySettings.js';
+import { sendData } from '../persistence/fetchApi.js';
 
 const pictureUploadFormNode = document.querySelector('#upload-select-image');
 const fileUploadInputNode = pictureUploadFormNode.querySelector('#upload-file');
@@ -26,7 +27,18 @@ const onDocumentEscKeydown = (evt) => {
 function setupSubmitActionForUploadForm() {
   pictureUploadFormNode.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    console.log('Форма ', isValidByPristine() ? 'валидна' : 'не валидна');
+    // console.log('Форма ', isValidByPristine() ? 'валидна' : 'не валидна');
+
+    if (isValidByPristine()) {
+      sendData(new FormData(evt.target))
+        .then(() => {
+          closePictureEditForm();
+          // addSuccessMessage();
+        })
+        .catch(() => {
+          // addErrorMessage();
+        });
+    }
   });
 }
 

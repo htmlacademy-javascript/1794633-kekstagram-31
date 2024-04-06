@@ -62,7 +62,6 @@ pristine.addValidator(
 
 // Повторение #
 function isExistsRepeatedHashtag() {
-  console.log('isExistsRepeatedHashtag called');
   const hashtags = hashtagsField.value.trim().split(' ');
   const alreadyMentionedHashtags = [];
 
