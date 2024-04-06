@@ -3,10 +3,17 @@ import {
   isValidByPristine,
   resetPristineValidation,
 } from './validateUploadForm.js';
-import { setupScalingForUploadedPicture, resetScalingForUploadedPicture } from './previewScaling.js';
+import {
+  setupScalingForUploadedPicture,
+  resetScalingForUploadedPicture,
+} from './previewScaling.js';
 import { setupEffectsForUploadedPicture } from './effects/setupSlider.js';
 import { resetEffectOnPrevewNode } from './effects/applySettings.js';
 import { sendData } from '../persistence/fetchApi.js';
+import {
+  notifyAboutSendingDataError,
+  notifyAboutSendingDataSuccess,
+} from '../persistence/notifications/notifyAboutSendingResults.js';
 
 const pictureUploadFormNode = document.querySelector('#upload-select-image');
 const fileUploadInputNode = pictureUploadFormNode.querySelector('#upload-file');
@@ -16,9 +23,23 @@ const pictureEditContainerNode = pictureUploadFormNode.querySelector(
 const pictureEditCancelButtonNode = pictureEditContainerNode.querySelector(
   '.img-upload__cancel',
 );
+const submitButtonNode =
+  pictureEditContainerNode.querySelector('#upload-submit');
+
+const imageUploadTextNode =
+  pictureEditContainerNode.querySelector('.img-upload__text');
+const hashtagInputNode = imageUploadTextNode.querySelector('.text__hashtags');
+const descriptionInputNode =
+  imageUploadTextNode.querySelector('.text__description');
 
 const onDocumentEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
+    if (
+      evt.target === hashtagInputNode ||
+      evt.target === descriptionInputNode
+    ) {
+      return;
+    }
     evt.preventDefault();
     closePictureEditForm();
   }
@@ -27,17 +48,16 @@ const onDocumentEscKeydown = (evt) => {
 function setupSubmitActionForUploadForm() {
   pictureUploadFormNode.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    // console.log('Форма ', isValidByPristine() ? 'валидна' : 'не валидна');
 
     if (isValidByPristine()) {
+      submitButtonNode.disabled = true;
       sendData(new FormData(evt.target))
         .then(() => {
           closePictureEditForm();
-          // addSuccessMessage();
+          notifyAboutSendingDataSuccess();
         })
-        .catch(() => {
-          // addErrorMessage();
-        });
+        .catch(() => notifyAboutSendingDataError())
+        .finally(() => (submitButtonNode.disabled = false));
     }
   });
 }
