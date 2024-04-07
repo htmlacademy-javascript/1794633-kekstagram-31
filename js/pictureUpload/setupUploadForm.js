@@ -60,9 +60,6 @@ function onSubmitUploadForm(evt) {
   }
 }
 
-function setupSubmitActionForUploadForm() {
-}
-
 function showPicturePreview() {
   const FILE_TYPES = ['jpg', 'jpeg', 'png', 'webp'];
   const picturePreview = document.querySelector('.img-upload__preview img');

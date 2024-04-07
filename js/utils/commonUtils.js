@@ -35,7 +35,6 @@ function debounce (callback, timeoutDelay = 500) {
 
   return (...rest) => {
     clearTimeout(timeoutId);
-    console.log('debounce');
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 }
