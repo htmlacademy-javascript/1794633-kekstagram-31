@@ -1,4 +1,5 @@
 import { isEscapeKey } from './utils/commonUtils.js';
+import { getPhotoByIdFromCache } from './persistence/cachePhotos.js';
 
 const bodyNode = document.querySelector('body');
 const bigPictureNode = bodyNode.querySelector('.big-picture');
@@ -125,7 +126,7 @@ function renderComment({ avatar, message, name }) {
   return renderedCommentNode;
 }
 
-export default function setupBigPicturePopup(photoDataset) {
+export default function setupBigPicturePopup() {
   const picturesContainerNode = document.querySelector('.pictures');
 
   picturesContainerNode.addEventListener('click', (evt) => {
@@ -133,10 +134,7 @@ export default function setupBigPicturePopup(photoDataset) {
 
     if (currentPictureNode) {
       evt.preventDefault();
-      const photoData = photoDataset.find(
-        (photo) => Number(photo.id) === Number(currentPictureNode.dataset.id),
-      );
-      openBigPicture(photoData);
+      openBigPicture(getPhotoByIdFromCache(currentPictureNode.dataset.id));
     }
   });
 }
