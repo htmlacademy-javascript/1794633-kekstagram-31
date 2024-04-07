@@ -63,6 +63,7 @@ function setupEffectsForUploadedPicture() {
     updateSliderVisibility();
     updateSliderOptions(evt);
   });
+  // updateSliderVisibility();
 }
 
 export {setupEffectsForUploadedPicture};

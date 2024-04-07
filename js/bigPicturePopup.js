@@ -40,7 +40,7 @@ const onDocumentKeydown = (evt) => {
 };
 
 function openBigPicture({ url, description, likes, comments }) {
-  bodyNode.classList.add('.modal-open');
+  bodyNode.classList.add('modal-open');
   bigPictureNode.classList.remove('hidden');
 
   bigPictureImageNode.src = url;
@@ -56,11 +56,12 @@ function openBigPicture({ url, description, likes, comments }) {
 }
 
 function closeBigPicture() {
-  bodyNode.classList.remove('.modal-open');
+  bodyNode.classList.remove('modal-open');
   bigPictureNode.classList.add('hidden');
 
   bigPictureCloseNode.removeEventListener('click', closeBigPicture);
   document.removeEventListener('keydown', onDocumentKeydown);
+  socialCommentsLoadButtonNode.classList.remove('hidden');
 }
 
 const onLoadCommentsButtonClick = (evt) => {
@@ -114,6 +115,7 @@ function renderNextCommentsPortion() {
       'click',
       onLoadCommentsButtonClick,
     );
+    socialCommentsLoadButtonNode.classList.add('hidden');
   }
 }
 
