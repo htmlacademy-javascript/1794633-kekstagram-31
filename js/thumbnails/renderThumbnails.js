@@ -1,5 +1,6 @@
-import { getTemplate } from './utils/dom.js';
+import { getTemplate } from '../utils/dom.js';
 
+const picturesContainerNode = document.querySelector('.pictures');
 const thumbnailTemplate = getTemplate('#picture');
 
 function renderSingleThumbnail({ id, url, description, comments, likes }) {
@@ -16,8 +17,12 @@ function renderSingleThumbnail({ id, url, description, comments, likes }) {
   return thumbnail;
 }
 
+const removeThumbnails = () => {
+  const thumbnails = picturesContainerNode.querySelectorAll('.picture');
+  thumbnails.forEach((thumbnail) => thumbnail.remove());
+};
+
 export default function renderThumbnails(photosData) {
-  document
-    .querySelector('.pictures')
-    .append(...photosData.map(renderSingleThumbnail));
+  removeThumbnails();
+  picturesContainerNode.append(...photosData.map(renderSingleThumbnail));
 }

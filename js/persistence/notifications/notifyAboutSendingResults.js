@@ -14,13 +14,12 @@ function onDocumentEscKeydown(evt) {
   }
 }
 
-function onDocumentClick(evt) {
-  if (
-    !(
-      evt.target.closest('.success__inner') ||
-      evt.target.closest('.error__inner')
-    )
-  ) {
+function onDocumentClick(evt, isSuccess) {
+  const innerContainerClassName = isSuccess
+    ? '.success__inner'
+    : '.error__inner';
+
+  if (!evt.target.closest(innerContainerClassName)) {
     removeMessageNode();
   }
 }
@@ -39,7 +38,7 @@ function notifyAboutSending(isSuccess) {
   });
 
   document.addEventListener('keydown', onDocumentEscKeydown);
-  document.addEventListener('click', onDocumentClick);
+  document.addEventListener('click', (evt) => onDocumentClick(evt, isSuccess));
 
   document.body.append(messageNode);
 }
