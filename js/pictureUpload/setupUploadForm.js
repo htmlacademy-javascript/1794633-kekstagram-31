@@ -45,21 +45,22 @@ const onDocumentEscKeydown = (evt) => {
   }
 };
 
-function setupSubmitActionForUploadForm() {
-  pictureUploadFormNode.addEventListener('submit', (evt) => {
-    evt.preventDefault();
+function onSubmitUploadForm(evt) {
+  evt.preventDefault();
 
-    if (isValidByPristine()) {
-      submitButtonNode.disabled = true;
-      sendData(new FormData(evt.target))
-        .then(() => {
-          closePictureEditForm();
-          notifyAboutSendingDataSuccess();
-        })
-        .catch(() => notifyAboutSendingDataError())
-        .finally(() => (submitButtonNode.disabled = false));
-    }
-  });
+  if (isValidByPristine()) {
+    submitButtonNode.disabled = true;
+    sendData(new FormData(evt.target))
+      .then(() => {
+        closePictureEditForm();
+        notifyAboutSendingDataSuccess();
+      })
+      .catch(() => notifyAboutSendingDataError())
+      .finally(() => (submitButtonNode.disabled = false));
+  }
+}
+
+function setupSubmitActionForUploadForm() {
 }
 
 function showPicturePreview() {
@@ -108,5 +109,6 @@ export default function setupPictureUploadForm() {
 
   setupScalingForUploadedPicture();
   setupEffectsForUploadedPicture();
-  setupSubmitActionForUploadForm();
+
+  pictureUploadFormNode.addEventListener('submit', (evt) => onSubmitUploadForm(evt));
 }
