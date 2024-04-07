@@ -110,5 +110,5 @@ export default function setupPictureUploadForm() {
   setupScalingForUploadedPicture();
   setupEffectsForUploadedPicture();
 
-  pictureUploadFormNode.addEventListener('submit', (evt) => onSubmitUploadForm(evt));
+  pictureUploadFormNode.addEventListener('submit', onSubmitUploadForm);
 }
