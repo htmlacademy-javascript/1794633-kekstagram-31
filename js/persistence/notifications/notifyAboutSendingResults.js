@@ -8,13 +8,14 @@ const errorTemplateNode = errorTemplateContent.querySelector('.error');
 
 let messageNode;
 
-function onDocumentEscKeydown(evt) {
+function onBodyEscKeydown(evt) {
   if (isEscapeKey(evt)) {
+    evt.stopPropagation();
     removeMessageNode();
   }
 }
 
-function onDocumentClick(evt, isSuccess) {
+function onBodyClick(evt, isSuccess) {
   const innerContainerClassName = isSuccess
     ? '.success__inner'
     : '.error__inner';
@@ -37,15 +38,15 @@ function notifyAboutSending(isSuccess) {
     removeMessageNode();
   });
 
-  document.addEventListener('keydown', onDocumentEscKeydown);
-  document.addEventListener('click', (evt) => onDocumentClick(evt, isSuccess));
+  document.body.addEventListener('keydown', onBodyEscKeydown);
+  document.body.addEventListener('click', (evt) => onBodyClick(evt, isSuccess));
 
   document.body.append(messageNode);
 }
 
 function removeMessageNode() {
-  document.removeEventListener('keydown', onDocumentEscKeydown);
-  document.removeEventListener('click', onDocumentClick);
+  document.body.removeEventListener('keydown', onBodyEscKeydown);
+  document.removeEventListener('click', onBodyClick);
   messageNode.remove();
 }
 
