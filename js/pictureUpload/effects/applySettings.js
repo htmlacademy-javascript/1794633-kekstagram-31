@@ -72,8 +72,8 @@ function applyEffectOnPreviewNode(effect, effectLevelValue = 1) {
   picturePreviewNode.style.filter = composeFilterStyle(effect, effectLevelValue);
 }
 
-function resetEffectOnPrevewNode() {
+function resetEffectsOnPreviews() {
   applyEffectOnPreviewNode('none');
 }
 
-export { effectsSettings, applyEffectOnPreviewNode, resetEffectOnPrevewNode };
+export { effectsSettings, applyEffectOnPreviewNode, resetEffectsOnPreviews };

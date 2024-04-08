@@ -1,4 +1,4 @@
-import { effectsSettings, applyEffectOnPreviewNode } from './applySettings.js';
+import { effectsSettings, applyEffectOnPreviewNode, resetEffectsOnPreviews } from './applySettings.js';
 
 const sliderContainerNode = document.querySelector('.img-upload__effect-level');
 const sliderNode = sliderContainerNode.querySelector('.effect-level__slider');
@@ -7,6 +7,11 @@ const effectsNode = document.querySelector('.img-upload__effects');
 
 function getCurrentEffect() {
   return effectsNode.querySelector('.effects__radio:checked').value;
+}
+
+function resetEffects() {
+  resetEffectsOnPreviews();
+  updateSliderVisibility();
 }
 
 noUiSlider.create(sliderNode, {
@@ -65,4 +70,4 @@ function setupEffectsForUploadedPicture() {
   });
 }
 
-export {setupEffectsForUploadedPicture};
+export {setupEffectsForUploadedPicture, resetEffects};

@@ -12,7 +12,7 @@ function renderSingleThumbnail({ id, url, description, comments, likes }) {
   image.src = url;
   image.alt = description;
   thumbnail.querySelector('.picture__comments').textContent = comments.length;
-  thumbnail.querySelector('.picture__likes').textContent = likes.length;
+  thumbnail.querySelector('.picture__likes').textContent = likes;
 
   return thumbnail;
 }

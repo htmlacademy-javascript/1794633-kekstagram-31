@@ -13,7 +13,7 @@ const pristine = new Pristine(pictureUploadFormNode, {
 
 // Допустимое кол-во #
 function isHashtagsQuantityUnderLimit() {
-  const hashtags = hashtagsField.value.trim().split(' ');
+  const hashtags = hashtagsField.value.trim().split(/[\s,\t,\n]+/);
   return hashtags.length <= HASHTAGS_QUANTITY_LIMIT;
 }
 
@@ -33,7 +33,7 @@ function isHashtagsMatchedToMask() {
     return true;
   }
   const validHashtagMask = /^#[a-zа-яё0-9]{1,19}$/i;
-  const hashtags = hashtagsFieldValue.split(' ');
+  const hashtags = hashtagsFieldValue.split(/[\s,\t,\n]+/);
 
   invalidHashtags = [];
 
@@ -62,7 +62,7 @@ pristine.addValidator(
 
 // Повторение #
 function isExistsRepeatedHashtag() {
-  const hashtags = hashtagsField.value.trim().split(' ');
+  const hashtags = hashtagsField.value.trim().toUpperCase().split(/[\s,\t,\n]+/);
   const alreadyMentionedHashtags = [];
 
   hashtags.forEach((hashtag) => {

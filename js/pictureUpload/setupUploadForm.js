@@ -7,8 +7,7 @@ import {
   setupScalingForUploadedPicture,
   resetScalingForUploadedPicture,
 } from './previewScaling.js';
-import { setupEffectsForUploadedPicture } from './effects/setupSlider.js';
-import { resetEffectOnPrevewNode } from './effects/applySettings.js';
+import { setupEffectsForUploadedPicture, resetEffects } from './effects/setupSlider.js';
 import { sendData } from '../persistence/fetchApi.js';
 import {
   notifyAboutSendingDataError,
@@ -33,6 +32,7 @@ const descriptionInputNode =
   imageUploadTextNode.querySelector('.text__description');
 
 const onDocumentEscKeydown = (evt) => {
+  console.log('esc on setupPictureUploadForm', evt);
   if (isEscapeKey(evt)) {
     if (
       evt.target === hashtagInputNode ||
@@ -67,13 +67,14 @@ function showPicturePreview() {
 
   const file = fileUploadInputNode.files[0];
   const fileName = file.name.toLowerCase();
-  const matches = FILE_TYPES.some((elem) => fileName.endsWith(elem));
+  const isAllowedFileType = FILE_TYPES.some((elem) => fileName.endsWith(elem));
 
-  if (matches) {
+  if (isAllowedFileType) {
     picturePreview.src = URL.createObjectURL(file);
     effectsPreview.forEach((elem) => {
       elem.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
     });
+    resetEffects();
   }
 }
 
@@ -83,7 +84,7 @@ function closePictureEditForm() {
   document.removeEventListener('keydown', onDocumentEscKeydown);
 
   pictureUploadFormNode.reset();
-  resetEffectOnPrevewNode();
+  resetEffects();
   resetScalingForUploadedPicture();
   resetPristineValidation();
 }
