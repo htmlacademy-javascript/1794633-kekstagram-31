@@ -32,7 +32,6 @@ const descriptionInputNode =
   imageUploadTextNode.querySelector('.text__description');
 
 const onDocumentEscKeydown = (evt) => {
-  console.log('esc on setupPictureUploadForm', evt);
   if (isEscapeKey(evt)) {
     if (
       evt.target === hashtagInputNode ||
