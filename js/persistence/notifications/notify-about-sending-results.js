@@ -16,8 +16,6 @@ function onBodyEscKeydown(evt) {
 }
 
 function onBodyClick({ target }) {
-  console.log('onBodyClick', target);
-
   const result = target.closest('.success__inner') || target.closest('.error__inner');
   if (result) {
     return;
