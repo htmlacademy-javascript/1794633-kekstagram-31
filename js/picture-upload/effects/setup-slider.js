@@ -1,4 +1,4 @@
-import { effectsSettings, applyEffectOnPreviewNode, resetEffectsOnPreviews } from './applySettings.js';
+import { effectsSettings, applyEffectOnPreviewNode, resetEffectsOnPreviews } from './apply-settings.js';
 
 const sliderContainerNode = document.querySelector('.img-upload__effect-level');
 const sliderNode = sliderContainerNode.querySelector('.effect-level__slider');

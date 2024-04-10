@@ -1,18 +1,18 @@
-import { isEscapeKey } from '../utils/commonUtils.js';
+import { isEscapeKey } from '../utils/common-utils.js';
 import {
   isValidByPristine,
   resetPristineValidation,
-} from './validateUploadForm.js';
+} from './validate-upload-form.js';
 import {
   setupScalingForUploadedPicture,
   resetScalingForUploadedPicture,
-} from './previewScaling.js';
-import { setupEffectsForUploadedPicture, resetEffects } from './effects/setupSlider.js';
-import { sendData } from '../persistence/fetchApi.js';
+} from './preview-scaling.js';
+import { setupEffectsForUploadedPicture, resetEffects } from './effects/setup-slider.js';
+import { sendData } from '../persistence/fetch-api.js';
 import {
   notifyAboutSendingDataError,
   notifyAboutSendingDataSuccess,
-} from '../persistence/notifications/notifyAboutSendingResults.js';
+} from '../persistence/notifications/notify-about-sending-results.js';
 
 const pictureUploadFormNode = document.querySelector('#upload-select-image');
 const fileUploadInputNode = pictureUploadFormNode.querySelector('#upload-file');
@@ -51,11 +51,13 @@ function onSubmitUploadForm(evt) {
     submitButtonNode.disabled = true;
     sendData(new FormData(evt.target))
       .then(() => {
-        closePictureEditForm();
         notifyAboutSendingDataSuccess();
+        closePictureEditForm();
       })
       .catch(() => notifyAboutSendingDataError())
-      .finally(() => (submitButtonNode.disabled = false));
+      .finally(() => {
+        submitButtonNode.disabled = false;
+      });
   }
 }
 

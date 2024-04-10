@@ -1,6 +1,6 @@
 const pictureUploadFormNode = document.querySelector('#upload-select-image');
-const hashtagsField = pictureUploadFormNode.querySelector('.text__hashtags');
-const descriptionField =
+const hashtagsFieldNode = pictureUploadFormNode.querySelector('.text__hashtags');
+const descriptionFieldNode =
   pictureUploadFormNode.querySelector('.text__description');
 const HASHTAGS_QUANTITY_LIMIT = 5;
 const DESCRIPTION_LENGTH_LIMIT = 140;
@@ -13,12 +13,12 @@ const pristine = new Pristine(pictureUploadFormNode, {
 
 // Допустимое кол-во #
 function isHashtagsQuantityUnderLimit() {
-  const hashtags = hashtagsField.value.trim().split(/[\s,\t,\n]+/);
+  const hashtags = hashtagsFieldNode.value.trim().split(/[\s,\t,\n]+/);
   return hashtags.length <= HASHTAGS_QUANTITY_LIMIT;
 }
 
 pristine.addValidator(
-  hashtagsField,
+  hashtagsFieldNode,
   isHashtagsQuantityUnderLimit,
   'Превышено допустимое количество хэштегов',
   1,
@@ -28,7 +28,7 @@ pristine.addValidator(
 let invalidHashtags = [];
 
 function isHashtagsMatchedToMask() {
-  const hashtagsFieldValue = hashtagsField.value.trim();
+  const hashtagsFieldValue = hashtagsFieldNode.value.trim();
   if (!hashtagsFieldValue) {
     return true;
   }
@@ -54,15 +54,15 @@ function hashtagsDoNotMatchedToMaskErrorMessage() {
 }
 
 pristine.addValidator(
-  hashtagsField,
+  hashtagsFieldNode,
   isHashtagsMatchedToMask,
   hashtagsDoNotMatchedToMaskErrorMessage,
   2,
 );
 
 // Повторение #
-function isExistsRepeatedHashtag() {
-  const hashtags = hashtagsField.value.trim().toUpperCase().split(/[\s,\t,\n]+/);
+function isAbsentRepeatedHashtag() {
+  const hashtags = hashtagsFieldNode.value.trim().toUpperCase().split(/[\s,\t,\n]+/);
   const alreadyMentionedHashtags = [];
 
   hashtags.forEach((hashtag) => {
@@ -74,18 +74,18 @@ function isExistsRepeatedHashtag() {
 }
 
 pristine.addValidator(
-  hashtagsField,
-  isExistsRepeatedHashtag,
+  hashtagsFieldNode,
+  isAbsentRepeatedHashtag,
   'Xэштеги повторяются',
   3,
 );
 
 // Длина комментария
 const isDescriptionLengthUnderLimit = () =>
-  descriptionField.value.length <= DESCRIPTION_LENGTH_LIMIT;
+  descriptionFieldNode.value.length <= DESCRIPTION_LENGTH_LIMIT;
 
 pristine.addValidator(
-  descriptionField,
+  descriptionFieldNode,
   isDescriptionLengthUnderLimit,
   `Длина комментария не может быть больше ${DESCRIPTION_LENGTH_LIMIT} символов`,
 );

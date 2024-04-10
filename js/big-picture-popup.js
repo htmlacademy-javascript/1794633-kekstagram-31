@@ -1,5 +1,7 @@
-import { isEscapeKey } from './utils/commonUtils.js';
-import { getPhotoByIdFromCache } from './persistence/cachePhotos.js';
+import { isEscapeKey } from './utils/common-utils.js';
+import { getPhotoByIdFromCache } from './persistence/cache-photos.js';
+
+const COMMENTS_PORTION_SIZE = 5;
 
 const bodyNode = document.querySelector('body');
 const bigPictureNode = bodyNode.querySelector('.big-picture');
@@ -29,7 +31,6 @@ const socialCommentsLoadButtonNode = bigPictureSocialNode.querySelector(
 const bigPictureCloseNode = bigPictureNode.querySelector(
   '.big-picture__cancel',
 );
-const COMMENTS_PORTION_SIZE = 5;
 let nextCommentsPortionGetter;
 
 const onDocumentKeydown = (evt) => {

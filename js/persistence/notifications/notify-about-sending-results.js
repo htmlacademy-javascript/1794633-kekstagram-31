@@ -1,4 +1,4 @@
-import { isEscapeKey } from '../../utils/commonUtils.js';
+import { isEscapeKey } from '../../utils/common-utils.js';
 
 const successTemplateContent = document.querySelector('#success').content;
 const successTemplateNode = successTemplateContent.querySelector('.success');
@@ -15,14 +15,15 @@ function onBodyEscKeydown(evt) {
   }
 }
 
-function onBodyClick(evt, isSuccess) {
-  const innerContainerClassName = isSuccess
-    ? '.success__inner'
-    : '.error__inner';
+function onBodyClick({ target }) {
+  console.log('onBodyClick', target);
 
-  if (!evt.target.closest(innerContainerClassName)) {
-    removeMessageNode();
+  const result = target.closest('.success__inner') || target.closest('.error__inner');
+  if (result) {
+    return;
   }
+
+  removeMessageNode();
 }
 
 function notifyAboutSending(isSuccess) {
@@ -39,14 +40,14 @@ function notifyAboutSending(isSuccess) {
   });
 
   document.body.addEventListener('keydown', onBodyEscKeydown);
-  document.body.addEventListener('click', (evt) => onBodyClick(evt, isSuccess));
+  document.body.addEventListener('click', onBodyClick);
 
   document.body.append(messageNode);
 }
 
 function removeMessageNode() {
   document.body.removeEventListener('keydown', onBodyEscKeydown);
-  document.removeEventListener('click', onBodyClick);
+  document.body.removeEventListener('click', onBodyClick);
   messageNode.remove();
 }
 
