@@ -1,10 +1,10 @@
-import { cacheLoadedPhotos } from './persistence/cachePhotos.js';
-import renderThumbnails from './thumbnails/renderThumbnails.js';
-import setupBigPicturePopup from './bigPicturePopup.js';
-import setupPictureUploadForm from './pictureUpload/setupUploadForm.js';
-import { getData } from './persistence/fetchApi.js';
-import notifyAboutLoadingDataError from './persistence/notifications/notifyAboutLoadingResults.js';
-import { setupThumbnailsFilters } from './thumbnails/filterThumbnails.js';
+import { cacheLoadedPhotos } from './persistence/cache-photos.js';
+import renderThumbnails from './thumbnails/render-thumbnails.js';
+import setupBigPicturePopup from './big-picture-popup.js';
+import setupPictureUploadForm from './picture-upload/setup-upload-form.js';
+import { getData } from './persistence/fetch-api.js';
+import notifyAboutLoadingDataError from './persistence/notifications/notify-about-loading-results.js';
+import { setupThumbnailsFilters } from './thumbnails/filter-thumbnails.js';
 
 getData()
   .then((photos) => {

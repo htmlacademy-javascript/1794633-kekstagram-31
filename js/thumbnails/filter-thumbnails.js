@@ -1,9 +1,9 @@
-import renderThumbnails from './renderThumbnails.js';
-import { debounce } from '../utils/commonUtils.js';
+import renderThumbnails from './render-thumbnails.js';
+import { debounce } from '../utils/common-utils.js';
 
 const filtersContainerNode = document.querySelector('.img-filters ');
 const filtersFormNode = filtersContainerNode.querySelector('.img-filters__form');
-const filtersButtons = filtersFormNode.querySelectorAll('.img-filters__button');
+const filtersButtonNodes = filtersFormNode.querySelectorAll('.img-filters__button');
 
 const FILTER_DEFAULT = 'filter-default';
 const FILTER_RANDOM = 'filter-random';
@@ -31,7 +31,7 @@ function applyFilter(photos, target) {
 }
 
 function updateButtonsAppearance(buttonNode) {
-  filtersButtons.forEach((button) => button.classList.remove(ACTIVE_BUTTON_CLASS));
+  filtersButtonNodes.forEach((button) => button.classList.remove(ACTIVE_BUTTON_CLASS));
   buttonNode.classList.add(ACTIVE_BUTTON_CLASS);
 }
 

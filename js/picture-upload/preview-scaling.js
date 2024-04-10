@@ -1,9 +1,9 @@
-const scalingValueNode = document.querySelector('.scale__control--value');
-
 const SCALING_STEP = 25;
 const MIN_SCALE = 25;
 const MAX_SCALE = 100;
 const DEFAULT_SCALE = 100;
+
+const scalingValueNode = document.querySelector('.scale__control--value');
 
 let currentPictureScale = DEFAULT_SCALE;
 
